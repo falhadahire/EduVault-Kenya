@@ -7,8 +7,8 @@
 ---
 
 ## 🔗 Project Links
-* **Live Application:** [Insert Netlify Live URL](https://eduvault-kenya.vercel.app)
-* **Pitch Deck:** [Insert Google Slides Presentation Link](https://docs.google.com/presentation/d/1WQo3zozpaJxdgVyo74Z11oMSbUZNoeSgiYz3kSDw60M/edit?usp=sharing)
+* **Live Application:** (https://eduvault-kenya.vercel.app)
+* **Pitch Deck:** (https://docs.google.com/presentation/d/1WQo3zozpaJxdgVyo74Z11oMSbUZNoeSgiYz3kSDw60M/edit?usp=sharing)
 
 
 ---
