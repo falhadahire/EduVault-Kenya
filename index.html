@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EduVault Kenya</title>
+<style>
+:root{--em:#064E3B;--em2:#0b6b52;--gold:#D97706;--slate:#1E293B;--bg:#f4f6f3;--card:#fff;--tx:#1E293B;--mut:#5b6678;--line:#dfe5e0;--soft:#ecf5f0;--goldsoft:#fef3e2;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0f1720;--card:#1a2433;--tx:#e6ebf1;--mut:#9aa7b8;--line:#2c3a4d;--soft:#12332b;--goldsoft:#3a2a10}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0f1720;--card:#1a2433;--tx:#e6ebf1;--mut:#9aa7b8;--line:#2c3a4d;--soft:#12332b;--goldsoft:#3a2a10}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;margin:0 0 .4em;line-height:1.2}
+header{background:var(--em);color:#fff;padding:22px 20px 0}
+.wrap{max-width:1040px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:42px;height:42px;border-radius:10px;background:var(--gold);display:grid;place-items:center;font:700 20px Georgia,serif;color:#fff}
+header h1{font-size:1.6rem;margin:0}
+header p{margin:2px 0 0;opacity:.85;font-size:.92rem}
+nav{display:flex;gap:4px;margin-top:18px;overflow-x:auto}
+nav button{flex:0 0 auto;background:transparent;border:0;color:#d7ece4;font:600 .95rem inherit;font-family:inherit;padding:12px 16px;border-radius:10px 10px 0 0;cursor:pointer;border-bottom:3px solid transparent}
+nav button[aria-selected=true]{background:var(--bg);color:var(--em);border-bottom-color:var(--gold)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) nav button[aria-selected=true]{color:#6ee7b7}}
+nav button:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+main{max-width:1040px;margin:0 auto;padding:22px 16px 48px}
+.panel{display:none}.panel.on{display:block}
+.grid{display:grid;gap:18px;grid-template-columns:1fr 1fr}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+.card.gold{border-top:4px solid var(--gold)}
+label{display:block;font-weight:600;font-size:.88rem;margin:12px 0 4px}
+input,select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:9px;font:inherit;background:var(--card);color:var(--tx)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:520px){.row{grid-template-columns:1fr}}
+.btn{background:var(--em);color:#fff;border:0;padding:12px 18px;border-radius:10px;font:600 1rem inherit;font-family:inherit;cursor:pointer}
+.btn:hover{background:var(--em2)}
+.btn.gold{background:var(--gold)}.btn.gold:hover{background:#b45f04}
+.btn.ghost{background:transparent;color:var(--em);border:1.5px solid var(--em)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.ghost{color:#6ee7b7;border-color:#6ee7b7}}
+.btn:disabled{opacity:.5;cursor:default}
+.drop{margin-top:14px;border:2px dashed var(--em);border-radius:12px;padding:18px;text-align:center;cursor:pointer;background:var(--soft);color:var(--mut)}
+.drop.over{background:var(--goldsoft);border-color:var(--gold)}
+.drop img{max-height:90px;border-radius:8px;margin-top:8px}
+.muted{color:var(--mut);font-size:.88rem}
+.err{color:#b91c1c;font-weight:600;margin-top:8px;min-height:1.2em}
+.cert{border:2px solid var(--em);border-radius:14px;padding:22px;background:var(--card);position:relative}
+.cert:before{content:"";position:absolute;inset:6px;border:1px solid var(--gold);border-radius:10px;pointer-events:none}
+.cert h3{color:var(--em);font-size:1.25rem}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .cert h3{color:#6ee7b7}}
+.refid{display:inline-block;background:var(--gold);color:#fff;font-weight:700;padding:4px 12px;border-radius:99px;letter-spacing:.04em}
+.kv{display:grid;grid-template-columns:130px 1fr;gap:6px 12px;margin:12px 0;font-size:.95rem}
+.kv b{color:var(--mut);font-weight:600}
+.level{font:700 1.3rem Georgia,serif;color:var(--em)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .level{color:#6ee7b7}}
+ul.clean{margin:6px 0;padding-left:20px}
+.steps{display:flex;gap:8px;margin:14px 0}
+.step{flex:1;text-align:center;padding:10px 6px;border-radius:10px;border:1.5px solid var(--line);font-size:.88rem;font-weight:600;color:var(--mut)}
+.step.done{background:var(--em);border-color:var(--em);color:#fff}
+.step.next{border-color:var(--gold);color:var(--gold)}
+.badge{display:inline-block;padding:3px 10px;border-radius:99px;font-size:.8rem;font-weight:700;background:var(--soft);color:var(--em)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .badge{color:#6ee7b7}}
+.badge.warn{background:var(--goldsoft);color:var(--gold)}
+.bar{height:14px;background:var(--line);border-radius:99px;overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--em));width:0;transition:width .4s}
+.score{font:700 2.6rem Georgia,serif;color:var(--em)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .score{color:#6ee7b7}}
+.chk{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:2px;accent-color:var(--em);flex:0 0 auto}
+.chk.on{background:var(--soft);border-color:var(--em)}
+.chk b{display:block}
+.job{padding:12px;border:1px solid var(--line);border-radius:10px;margin-bottom:10px}
+.cases{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--slate);color:#fff;padding:12px 20px;border-radius:10px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:20;max-width:90vw}
+.toast.on{opacity:1}
+footer{text-align:center;color:var(--mut);font-size:.82rem;padding:0 16px 30px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<div class="brand"><div class="logo" aria-hidden="true">E</div><div><h1>EduVault Kenya</h1><p>Portable proof of skills for displaced talent. ILO PROSPECTS Mini-Hackathon, Track 1.</p></div></div>
+<nav role="tablist" aria-label="Sections">
+<button role="tab" id="t0" aria-selected="true" data-tab="0">Credential Equivalency</button>
+<button role="tab" id="t1" aria-selected="false" data-tab="1">Bridging &amp; Compliance</button>
+<button role="tab" id="t2" aria-selected="false" data-tab="2">Partner Assessor Portal</button>
+<button role="tab" id="t3" aria-selected="false" data-tab="3">Sample Cases</button>
+</nav></div></header>
+
+<main>
+<section class="panel on" id="p0" role="tabpanel" aria-labelledby="t0">
+<div class="grid">
+<div class="card">
+<h2>Credential Equivalency Mapper</h2>
+<p class="muted">Enter the candidate’s details. Everything stays in your browser.</p>
+<label for="name">Full name</label><input id="name" autocomplete="off" placeholder="e.g. Amina Hassan">
+<div class="row">
+<div><label for="country">Country of origin</label><select id="country"><option>Somalia</option><option>South Sudan</option><option>DRC</option><option>Ethiopia</option><option>Burundi</option></select></div>
+<div><label for="city">Settlement / city</label><select id="city"><option>Dadaab</option><option>Kakuma</option><option>Nairobi</option><option>Garissa</option></select></div>
+</div>
+<label for="qual">Qualification type</label><select id="qual"><option>Foreign University Degree</option><option>Foreign Diploma</option><option>Vocational/TVET Trade</option><option>Informal Apprenticeship</option></select>
+<label for="field">Field</label><select id="field"><option>Nursing &amp; Healthcare</option><option>Primary/Secondary Education</option><option>Solar &amp; Electrical Engineering</option><option>Accounting &amp; Business</option><option>Hospitality &amp; Tailoring</option></select>
+<div class="drop" id="drop" tabindex="0" role="button" aria-label="Upload transcript or trade portfolio photo">
+<div id="dropTxt">Drop a transcript or trade portfolio photo here, or click to choose a file</div></div>
+<input type="file" id="file" accept="image/*,.pdf" hidden>
+<p class="muted">Demo only: the file is read in your browser and never uploaded.</p>
+<div class="err" id="err" role="alert"></div>
+<button class="btn" id="run">Run equivalency &amp; skills check</button>
+</div>
+<div id="result"><div class="card"><h3>Your certificate appears here</h3><p class="muted">Fill in the form and run the check, or load a sample case from the last tab.</p></div></div>
+</div>
+</section>
+
+<section class="panel" id="p1" role="tabpanel" aria-labelledby="t1">
+<div class="grid">
+<div class="card">
+<h2>Work &amp; statutory compliance checklist</h2>
+<p class="muted" id="ckFor">Tick each step as it is completed.</p>
+<div id="checks"></div>
+</div>
+<div>
+<div class="card gold"><h3>Onboarding readiness score</h3><div class="score" id="rs">0%</div><div class="bar"><i id="rbar"></i></div><p id="rmsg" class="muted"></p></div>
+<div class="card" style="margin-top:18px"><h3>Employer hiring guide</h3>
+<ol class="clean" id="guide"></ol>
+<p class="muted">Prototype guidance for demonstration. Confirm current rules with the Department of Refugee Services, KRA and the relevant statutory body.</p></div>
+</div></div>
+</section>
+
+<section class="panel" id="p2" role="tabpanel" aria-labelledby="t2">
+<div class="grid">
+<div>
+<div class="card"><h2>Partner assessor &amp; employer verification</h2>
+<p class="muted">TVET instructors, NGO assessors and employers can look up a Reference ID. Try EV-2026-4109.</p>
+<label for="lookup">Reference ID</label>
+<div style="display:flex;gap:10px"><input id="lookup" placeholder="EV-2026-4109" autocomplete="off"><button class="btn" id="find">Look up</button></div>
+<div class="err" id="lerr" role="alert"></div>
+<div id="found"></div></div>
+</div>
+<div>
+<div class="card gold"><h3>Partner &amp; scale model</h3>
+<ul class="clean">
+<li><b>UNHCR and DRS</b> identify learners and confirm refugee status.</li>
+<li><b>ILO PROSPECTS</b> sets the skills-validation approach and funds cohort rollout.</li>
+<li><b>TVET centres and NGO assessors</b> run practical assessments and bridging courses.</li>
+<li><b>KNQA and statutory bodies</b> confirm equivalency and licensing.</li>
+<li><b>Employers</b> verify a Reference ID before hiring.</li>
+</ul>
+<p class="muted">Each cohort reuses the same record: map, bridge, assess, certify, place. Prototype scoring is simulated for demonstration and is not an official KNQA decision.</p></div>
+<div class="card" style="margin-top:18px"><h3>Registered references</h3><div id="refList" class="muted"></div></div>
+</div></div>
+</section>
+
+<section class="panel" id="p3" role="tabpanel" aria-labelledby="t3">
+<h2>Sample cases</h2><p class="muted">Load a profile into the mapper with one click.</p>
+<div class="cases" id="cases"></div>
+</section>
+</main>
+<footer>EduVault Kenya is a hackathon prototype. Results are simulated and run entirely in your browser. SDGs 4, 8, 10, 16 and 17.</footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+"use strict";
+var $=function(s){return document.querySelector(s)};
+var esc=function(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})};
+var QUAL={
+"Foreign University Degree":{lvl:7,name:"Bachelor’s Degree",base:82,bridge:"Jurisdiction and practice orientation (about 2 weeks)"},
+"Foreign Diploma":{lvl:6,name:"Diploma",base:76,bridge:"Competency gap training (about 6 weeks)"},
+"Vocational/TVET Trade":{lvl:4,name:"Craft Certificate",base:70,bridge:"Trade test preparation (about 8 weeks)"},
+"Informal Apprenticeship":{lvl:3,name:"Artisan Certificate via recognition of prior learning",base:58,bridge:"Skills portfolio build and practical coaching (about 12 weeks)"}};
+var FIELD={
+"Nursing & Healthcare":{body:"Nursing Council of Kenya (NCK)",reqs:["Verified transcript and licence from the home country","NCK registration or licensure exam","Police clearance and professional indemnity"],jobs:[["Enrolled nurse","Local","County dispensary, Garissa"],["Community health assistant","Local","NGO clinic, Dadaab"],["Telehealth triage support","Remote","Regional health platform"]]},
+"Primary/Secondary Education":{body:"Teachers Service Commission (TSC)",reqs:["Verified teaching certificate and subject transcripts","TSC registration number","Good conduct certificate"],jobs:[["Primary teacher","Local","Private school, Kakuma"],["Teaching assistant","Local","NGO learning centre, Nairobi"],["Online tutor, maths and science","Remote","EdTech provider"]]},
+"Solar & Electrical Engineering":{body:"National Industrial Training Authority (NITA) and EPRA",reqs:["NITA trade test certificate","EPRA solar PV technician licence","Workplace safety induction"],jobs:[["Solar installer","Local","Off-grid energy firm, Nairobi"],["Electrical technician","Local","Contractor, Kakuma"],["Remote system monitoring technician","Remote","Solar fleet operator"]]},
+"Accounting & Business":{body:"ICPAK and KASNEB",reqs:["Transcript evaluation against KASNEB levels","ICPAK student or member registration","Bookkeeping software skills check"],jobs:[["Bookkeeper","Local","SME accounting firm, Garissa"],["Finance assistant","Local","NGO finance office, Nairobi"],["Remote bookkeeping associate","Remote","Virtual accounting service"]]},
+"Hospitality & Tailoring":{body:"NITA and Tourism Regulatory Authority",reqs:["NITA trade test or portfolio assessment","Food handler or product quality certificate","Business permit if self-employed"],jobs:[["Tailor or garment finisher","Local","Apparel workshop, Nairobi"],["Kitchen assistant","Local","Hotel, Garissa"],["Remote pattern designer","Remote","Fashion marketplace"]]}};
+var CHECKS=[
+{id:"drs",t:"Refugee ID (DRS)",d:"Refugee identity card or proof of registration from the Department of Refugee Services.",w:25},
+{id:"kra",t:"KRA PIN registration",d:"Register on iTax so an employer can run payroll and tax.",w:20},
+{id:"perm",t:"Class M work permit",d:"Fee-exempt for recognised refugees under the Refugees Act 2021.",w:20},
+{id:"body",t:"Statutory body clearance",d:"Registration or clearance from the body for your field.",w:20},
+{id:"pay",t:"M-Pesa or bank account ready",d:"A registered account in your own name to receive wages.",w:15}];
+var DB={},state={cur:null,checks:{},file:null,fileImg:null};
+var CASES=[
+{id:"EV-2026-4109",name:"Amina Hassan",country:"Somalia",city:"Dadaab",qual:"Foreign Diploma",field:"Nursing & Healthcare",story:"Trained as a nurse in Mogadishu and has run a camp health post for four years. Needs her diploma recognised to practise.",step:1,doc:"nursing-diploma.jpg",checks:{drs:1,kra:1}},
+{id:"EV-2026-4110",name:"Deng Majok",country:"South Sudan",city:"Kakuma",qual:"Foreign University Degree",field:"Primary/Secondary Education",story:"Bachelor’s in education from Juba. Teaches maths to hundreds of learners in Kakuma and wants a TSC number.",step:0,doc:"juba-transcript.pdf",checks:{drs:1}},
+{id:"EV-2026-4111",name:"Jean-Claude Mbuyi",country:"DRC",city:"Nairobi",qual:"Vocational/TVET Trade",field:"Solar & Electrical Engineering",story:"Completed a TVET solar course in Goma and installs home systems in Nairobi. Needs a NITA trade test and EPRA licence.",step:2,doc:"solar-portfolio.jpg",checks:{drs:1,kra:1,perm:1,pay:1}},
+{id:"EV-2026-4112",name:"Halima Abdi",country:"Ethiopia",city:"Garissa",qual:"Foreign Diploma",field:"Accounting & Business",story:"Diploma in accounting from Jijiga. Keeps books for market traders and seeks formal bookkeeping work.",step:3,doc:"accounting-diploma.pdf",checks:{drs:1,kra:1,perm:1,body:1,pay:1}}];
+CASES.forEach(function(c){DB[c.id]=JSON.parse(JSON.stringify(c))});
+
+function hash(s){var h=7;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return h}
+function evaluate(r){var q=QUAL[r.qual],f=FIELD[r.field];var s=q.base+(r.doc?6:0)+(hash(r.name+r.country+r.field)%7);return{q:q,f:f,score:Math.min(98,s)}}
+function newId(){var n;do{n=4200+Math.floor(Math.random()*5800)}while(DB["EV-2026-"+n]);return"EV-2026-"+n}
+function toast(m){var t=$("#toast");t.textContent=m;t.className="toast on";clearTimeout(toast.h);toast.h=setTimeout(function(){t.className="toast"},2600)}
+
+function tracker(r,interactive){
+var names=["Enrol","Practical assessment","Certified"],h='<div class="steps">';
+names.forEach(function(n,i){h+='<div class="step '+(i<r.step?"done":i===r.step?"next":"")+'">'+(i<r.step?"✓ ":"")+n+'</div>'});
+h+="</div>";
+if(interactive){h+=r.step<3?'<button class="btn gold" data-adv="'+r.id+'">Mark “'+names[r.step]+'” complete</button>':'<span class="badge">Bridging complete</span>'}
+return h}
+function certHTML(r,interactive){
+var e=evaluate(r);
+return '<div class="cert"><h3>Kenyan KNQA Equivalency Certificate</h3><span class="refid">'+r.id+'</span>'+
+'<div class="kv"><b>Candidate</b><span>'+esc(r.name)+'</span><b>Origin</b><span>'+esc(r.country)+', now in '+esc(r.city)+'</span><b>Qualification</b><span>'+esc(r.qual)+'</span><b>Field</b><span>'+esc(r.field)+'</span><b>Evidence</b><span>'+(r.doc?esc(r.doc):"No document attached")+'</span></div>'+
+'<div class="muted">Mapped Kenyan qualification</div><div class="level">KNQF Level '+e.q.lvl+': '+e.q.name+'</div>'+
+'<p><span class="badge">Skills match '+e.score+'%</span> <span class="badge warn">Simulated score</span></p>'+
+'<h3 style="font-size:1rem;margin-top:12px">Statutory body: '+esc(e.f.body)+'</h3><ul class="clean">'+e.f.reqs.map(function(x){return"<li>"+esc(x)+"</li>"}).join("")+"</ul>"+
+'<h3 style="font-size:1rem;margin-top:12px">Bridging course: '+esc(e.q.bridge)+'</h3>'+tracker(r,interactive)+
+(r.signed?'<p class="badge">Verified by '+esc(r.signed.name)+', '+esc(r.signed.org)+' on '+esc(r.signed.date)+'</p>':'<p class="muted">Awaiting assessor sign-off.</p>')+'</div>'}
+
+function setCur(r){state.cur=r;r.checks=r.checks||{};state.checks=r.checks;renderAll()}
+function renderResult(){var r=state.cur;if(!r)return;$("#result").innerHTML=certHTML(r,true)+'<p class="muted">Share this Reference ID with an assessor or employer: <b>'+r.id+'</b></p>'}
+function renderChecks(){
+var r=state.cur;$("#ckFor").textContent=r?"Checklist for "+r.name+" ("+r.id+")":"Tick each step as it is completed. Run a check first to link it to a candidate.";
+$("#checks").innerHTML=CHECKS.map(function(c){var on=state.checks[c.id];return'<label class="chk '+(on?"on":"")+'"><input type="checkbox" data-ck="'+c.id+'" '+(on?"checked":"")+'><span><b>'+c.t+'</b><span class="muted">'+c.d+'</span></span></label>'}).join("");
+var sc=0;CHECKS.forEach(function(c){if(state.checks[c.id])sc+=c.w});
+$("#rs").textContent=sc+"%";$("#rbar").style.width=sc+"%";
+$("#rmsg").textContent=sc===100?"Ready to start work. Share the Reference ID with the employer.":sc>=60?"Close. Finish the remaining items below to unlock hiring.":"Early stage. Start with the Refugee ID and KRA PIN.";
+var missing=CHECKS.filter(function(c){return!state.checks[c.id]}).map(function(c){return c.t});
+var f=r?FIELD[r.field]:null;
+$("#guide").innerHTML=["Ask for the candidate’s EduVault Reference ID and verify it in the Partner Assessor Portal.","Confirm the Refugee ID and Class M work permit. There is no permit fee for recognised refugees.","Register the employee for KRA PIN, NSSF and SHA contributions.","Check statutory body registration"+(f?" ("+f.body+")":"")+" where the role is regulated.","Pay wages through M-Pesa or a bank account in the employee’s name."].map(function(x){return"<li>"+esc(x)+"</li>"}).join("")+(missing.length?'<li><b>Still open for this candidate:</b> '+esc(missing.join(", "))+"</li>":"");
+}
+function renderRefs(){$("#refList").innerHTML=Object.keys(DB).map(function(k){return'<div><button class="btn ghost" style="padding:4px 10px;margin:3px 0;font-size:.85rem" data-ref="'+k+'">'+k+'</button> '+esc(DB[k].name)+"</div>"}).join("")}
+function renderCases(){$("#cases").innerHTML=CASES.map(function(c,i){return'<div class="card gold"><h3>'+esc(c.name)+'</h3><p><span class="badge">'+esc(c.country)+' · '+esc(c.city)+'</span></p><p><b>'+esc(c.field)+'</b><br><span class="muted">'+esc(c.qual)+'</span></p><p class="muted">'+esc(c.story)+'</p><button class="btn" data-case="'+i+'">Load into mapper</button></div>'}).join("")}
+function renderAll(){renderResult();renderChecks();renderRefs()}
+
+function tab(i){document.querySelectorAll("nav button").forEach(function(b){b.setAttribute("aria-selected",b.dataset.tab==i)});document.querySelectorAll(".panel").forEach(function(p,j){p.classList.toggle("on",j==i)});window.scrollTo(0,0)}
+function fill(r){$("#name").value=r.name;$("#country").value=r.country;$("#city").value=r.city;$("#qual").value=r.qual;$("#field").value=r.field}
+
+function setFile(f){if(!f)return;state.file=f.name;state.fileImg=null;
+$("#dropTxt").innerHTML="Attached: <b>"+esc(f.name)+"</b>";
+if(f.type.indexOf("image/")===0){var fr=new FileReader();fr.onload=function(){state.fileImg=fr.result;$("#dropTxt").innerHTML+='<br><img alt="Preview of uploaded document" src="'+fr.result+'">'};fr.readAsDataURL(f)}}
+
+document.addEventListener("click",function(e){
+var t=e.target.closest("button,.drop");if(!t)return;
+if(t.dataset.tab!==undefined)tab(t.dataset.tab);
+else if(t.id==="drop")$("#file").click();
+else if(t.id==="run"){
+var name=$("#name").value.trim();
+if(name.length<2){$("#err").textContent="Enter the candidate’s full name to continue.";$("#name").focus();return}
+$("#err").textContent="";
+var r={id:newId(),name:name,country:$("#country").value,city:$("#city").value,qual:$("#qual").value,field:$("#field").value,doc:state.file,step:0,signed:null,checks:{}};
+DB[r.id]=r;setCur(r);toast("Certificate issued: "+r.id)}
+else if(t.dataset.adv){var r=DB[t.dataset.adv];if(r&&r.step<3){r.step++;renderAll();toast(r.step===3?"Certified. Bridging complete.":"Step complete.")}}
+else if(t.dataset.case!==undefined){var c=CASES[t.dataset.case],r=DB[c.id];fill(r);state.file=r.doc;$("#dropTxt").innerHTML="Attached: <b>"+esc(r.doc)+"</b>";setCur(r);tab(0);toast("Loaded "+r.name)}
+else if(t.id==="find")lookup();
+else if(t.dataset.ref){$("#lookup").value=t.dataset.ref;lookup()}
+else if(t.id==="sign")sign();
+else if(t.dataset.hire!==undefined){toast("Interest sent to the assessor for "+t.dataset.hire+" (demo).")}
+});
+document.addEventListener("change",function(e){
+var t=e.target;
+if(t.id==="file")setFile(t.files[0]);
+if(t.dataset.ck){state.checks[t.dataset.ck]=t.checked?1:0;renderChecks()}});
+document.addEventListener("keydown",function(e){
+if(e.key==="Enter"&&e.target.id==="lookup"){lookup()}
+if((e.key==="Enter"||e.key===" ")&&e.target.id==="drop"){e.preventDefault();$("#file").click()}});
+var dz=$("#drop");
+["dragenter","dragover"].forEach(function(n){dz.addEventListener(n,function(e){e.preventDefault();dz.classList.add("over")})});
+["dragleave","drop"].forEach(function(n){dz.addEventListener(n,function(e){e.preventDefault();dz.classList.remove("over")})});
+dz.addEventListener("drop",function(e){setFile(e.dataTransfer.files[0])});
+
+var viewing=null;
+function lookup(){
+var id=$("#lookup").value.trim().toUpperCase().replace(/\s+/g,"");
+var r=DB[id];$("#lerr").textContent="";
+if(!r){$("#found").innerHTML="";$("#lerr").textContent=id?"No record found for “"+id+"”. Check the ID format, for example EV-2026-4109.":"Enter a Reference ID first.";viewing=null;return}
+viewing=r;showFound()}
+function showFound(){
+var r=viewing,f=FIELD[r.field];
+var sign=r.signed?"":'<div class="card" style="margin-top:14px"><h3>Sign off as verified assessor</h3><label for="an">Your name</label><input id="an"><label for="ao">Organisation</label><input id="ao" placeholder="e.g. Mikono Vocational Training Centre"><label for="ar">Role</label><select id="ar"><option>TVET instructor</option><option>NGO assessor</option><option>Employer</option></select><div class="err" id="serr" role="alert"></div><button class="btn gold" id="sign">Sign off</button></div>';
+$("#found").innerHTML='<div style="margin-top:14px">'+certHTML(r,false)+"</div>"+sign+
+'<div class="card" style="margin-top:14px"><h3>Matched job openings</h3><p class="muted">Illustrative listings for the demo.</p>'+f.jobs.map(function(j){return'<div class="job"><b>'+esc(j[0])+'</b> <span class="badge '+(j[1]==="Remote"?"warn":"")+'">'+j[1]+'</span><br><span class="muted">'+esc(j[2])+'</span><br><button class="btn ghost" style="margin-top:8px;padding:6px 12px" data-hire="'+esc(j[0])+'">Express interest</button></div>'}).join("")+"</div>"}
+function sign(){
+var n=$("#an").value.trim(),o=$("#ao").value.trim();
+if(!n||!o){$("#serr").textContent="Enter your name and organisation to sign off.";return}
+viewing.signed={name:n,org:o+" ("+$("#ar").value+")",date:new Date().toISOString().slice(0,10)};
+showFound();renderAll();toast("Signed off "+viewing.id)}
+
+renderCases();renderAll();
+</script>
+</body>
+</html>
